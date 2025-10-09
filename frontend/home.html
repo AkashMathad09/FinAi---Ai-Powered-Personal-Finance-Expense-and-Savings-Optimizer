@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AI Expense Manager</title>
+    <link rel="stylesheet" href="/frontend/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <nav class="sidebar">
+            <div class="logo">FinAI</div>
+            <div class="nav-menu">
+                <a href="home.html" class="active"><i class="fas fa-home"></i><span>Home</span></a>
+                <a href="transactions.html"><i class="fas fa-exchange-alt"></i><span>Transactions</span></a>
+                <a href="balance.html"><i class="fas fa-wallet"></i><span>Balance</span></a>
+                <a href="reports.html"><i class="fas fa-chart-pie"></i><span>Reports</span></a>
+                <a href="rewards.html"><i class="fas fa-gift"></i><span>Rewards</span></a>
+            </div>
+            <div class="logout">
+                 <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Welcome, <span id="username-display">User</span>!</h1>
+            </header>
+
+            <div class="card ai-suggestion">
+                <i class="fas fa-lightbulb"></i>
+                <div class="suggestion-text">
+                    <strong>AI Tip:</strong> You've spent $50 on "Dining Out" this week. Consider cooking at home to stay within your $100 monthly food budget.
+                </div>
+            </div>
+
+            <div class="grid-container">
+                <div class="card stat-card income">
+                    <div class="icon"><i class="fas fa-arrow-up"></i></div>
+                    <div class="info">
+                        <h3>This Month's Income</h3>
+                        <p>$515,000</p>
+                    </div>
+                </div>
+                <div class="card stat-card expense">
+                    <div class="icon"><i class="fas fa-arrow-down"></i></div>
+                    <div class="info">
+                        <h3>This Month's Expenses</h3>
+                        <p>$2,150</p>
+                    </div>
+                </div>
+                <div class="card stat-card balance">
+                    <div class="icon"><i class="fas fa-scale-balanced"></i></div>
+                    <div class="info">
+                        <h3>Remaining Balance</h3>
+                        <p>$2,850</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card transaction-list">
+                <h2>Recent Transactions</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Netflix Subscription</td>
+                            <td>Entertainment</td>
+                            <td>Sep 24, 2025</td>
+                            <td class="type-expense">-$15.99</td>
+                        </tr>
+                        <tr>
+                            <td>Paycheck</td>
+                            <td>Salary</td>
+                            <td>Sep 20, 2025</td>
+                            <td class="type-income">+$2500.00</td>
+                        </tr>
+                        <tr>
+                            <td>Groceries</td>
+                            <td>Food</td>
+                            <td>Sep 22, 2025</td>
+                            <td class="type-expense">-$78.50</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </main>
+    </div>
+    <script src="js/auth.js"></script>
+</body>
+</html>
