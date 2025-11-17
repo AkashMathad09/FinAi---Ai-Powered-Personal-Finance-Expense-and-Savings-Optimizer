@@ -24,9 +24,13 @@ app.get('/', (req, res) => {
 // --- API Routes ---
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/transactions', require('./routes/transactionRoutes'));
+app.use('/api/wallet', require('./routes/walletRoutes'));
+app.use('/api/payments', require('./routes/paymentRoutes'));
+app.use('/api/budget', require('./routes/budgetRoutes'));
+app.use('/api/rewards', require('./routes/rewardRoutes')); 
 
 // Define the port
 const PORT = process.env.PORT || 5000;
 
 // Start the server
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+app.listen(PORT, () => console.log(`✅ Server running at: http://localhost:${PORT}`));

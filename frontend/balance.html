@@ -3,59 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Balance & Budget - AI Expense Manager</title>
-    <link rel="stylesheet" href="/frontend/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <title>AI Budget - FinAi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="app-container">
-        <nav class="sidebar">
-            <div class="logo">FinAI</div>
-            <div class="nav-menu">
-                <a href="home.html"><i class="fas fa-home"></i><span>Home</span></a>
-                <a href="transactions.html"><i class="fas fa-exchange-alt"></i><span>Transactions</span></a>
-                <a href="balance.html" class="active"><i class="fas fa-wallet"></i><span>Balance</span></a>
-                <a href="reports.html"><i class="fas fa-chart-pie"></i><span>Reports</span></a>
-                <a href="rewards.html"><i class="fas fa-gift"></i><span>Rewards</span></a>
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">FinAi</div>
+                <button class="mobile-menu-toggle" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
+            
+            <nav class="nav-menu">
+                <a href="home.html" class="active">
+                    <i class="fas fa-home"></i> <span>Dashboard</span>
+                </a>
+                <a href="transactions.html">
+                    <i class="fas fa-list"></i> <span>History</span>
+                </a>
+                <a href="balance.html">
+                    <i class="fas fa-robot"></i> <span>AI Budget</span>
+                </a>
+                <a href="send-money.html">
+                    <i class="fas fa-paper-plane"></i> <span>Transfer</span>
+                </a>
+                <a href="reports.html">
+                    <i class="fas fa-chart-pie"></i> <span>Reports</span>
+                </a>
+                <a href="rewards.html">
+                    <i class="fas fa-trophy"></i> <span>Rewards</span>
+                </a>
+            </nav>
+
             <div class="logout">
-                 <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+                <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
             </div>
-        </nav>
+        </aside>
 
         <main class="main-content">
             <header class="main-header">
-                <h1>Balance & Budget</h1>
+                <h1>AI Budget & Balance</h1>
             </header>
 
-            <div class="card ai-suggestion" id="ai-suggestion-card">
-                <i class="fas fa-robot"></i>
-                <div class="suggestion-text">
-                    <strong>AI Monthly Forecast:</strong> Based on your current spending, you are projected to be <strong id="forecast-status">$250 under</strong> budget this month. Keep up the great work!
+            <div class="card" style="max-width: 500px; margin-bottom: 2rem;">
+                <h3 style="margin: 0; color: var(--subtle-text-color); font-weight: 500;">Current Wallet Balance</h3>
+                <h2 id="current-balance" style="font-size: 3rem; color: var(--primary-color); margin: 0.5rem 0;">₹0.00</h2>
+            </div>
+
+            <div class="card" style="max-width: 500px; margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1rem;">Monthly Summary</h3>
+                
+                <div class="summary-grid">
+                    <div>
+                        <p style="font-size: 0.9rem; color: var(--subtle-text-color); margin:0;">Total Income</p>
+                        <strong id="total-income" style="font-size: 1.25rem; color: var(--success-color);">₹0.00</strong>
+                    </div>
+                    <div>
+                        <p style="font-size: 0.9rem; color: var(--subtle-text-color); margin:0;">Total Spent</p>
+                        <strong id="total-expense" style="font-size: 1.25rem; color: var(--danger-color);">₹0.00</strong>
+                    </div>
+                    <div>
+                        <p style="font-size: 0.9rem; color: var(--subtle-text-color); margin:0;">Budget Limit</p>
+                        <strong id="budget-limit-display" style="font-size: 1.25rem;">₹0.00</strong>
+                    </div>
+                    <div>
+                        <p style="font-size: 0.9rem; color: var(--subtle-text-color); margin:0;">Remaining</p>
+                        <strong id="amount-remaining" style="font-size: 1.25rem;">₹0.00</strong>
+                    </div>
                 </div>
             </div>
 
-            <div class="card">
-                <h2>Monthly Expense Limit</h2>
-                <p>This is the limit set by our AI to help you save. You can exceed it in an emergency.</p>
-                <div style="text-align: center; margin: 2rem 0;">
-                    <p style="font-size: 1.2rem; color: var(--subtle-text-color);">Limit for September</p>
-                    <p style="font-size: 3rem; font-weight: 700; color: var(--primary-color);" id="monthly-limit">$2,500.00</p>
+            <div class="card" style="max-width: 500px;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <i class="fas fa-robot" style="font-size: 1.5rem; color: var(--primary-color);"></i>
+                    <h3 style="margin:0;">AI Budget Planner</h3>
                 </div>
-                <hr style="border: none; border-top: 1px solid var(--border-color); margin-bottom: 1.5rem;">
-                <div class="grid-container">
-                    <div>
-                        <h3>Amount Spent</h3>
-                        <p style="font-size: 1.5rem; font-weight: 600;" id="amount-spent">$2,150.00</p>
-                    </div>
-                    <div>
-                        <h3>Amount Remaining</h3>
-                        <p style="font-size: 1.5rem; font-weight: 600; color: var(--secondary-color);" id="amount-remaining">$350.00</p>
-                    </div>
-                </div>
+                <p style="color: var(--subtle-text-color); font-size: 0.9rem; margin-bottom: 1rem;">
+                    Let FinAi analyze your past 90 days of spending to suggest a monthly budget for you.
+                </p>
+                <button id="suggest-budget-btn" class="btn">Generate AI Plan</button>
+                
+                <p id="ai-loading" style="display: none; color: var(--subtle-text-color); margin-top: 1rem;">
+                    <i class="fas fa-spinner fa-spin"></i> Thinking... Please wait.
+                </p>
             </div>
+            
+            <div id="suggestions-container" class="grid-3-col" style="margin-top: 2rem;">
+                </div>
         </main>
     </div>
+
     <script src="js/auth.js"></script>
     <script src="js/balance.js"></script>
 </body>

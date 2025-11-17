@@ -3,98 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - AI Expense Manager</title>
-    <link rel="stylesheet" href="/frontend/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <title>Dashboard - FinAi</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="app-container">
-        <nav class="sidebar">
-            <div class="logo">FinAI</div>
-            <div class="nav-menu">
-                <a href="home.html" class="active"><i class="fas fa-home"></i><span>Home</span></a>
-                <a href="transactions.html"><i class="fas fa-exchange-alt"></i><span>Transactions</span></a>
-                <a href="balance.html"><i class="fas fa-wallet"></i><span>Balance</span></a>
-                <a href="reports.html"><i class="fas fa-chart-pie"></i><span>Reports</span></a>
-                <a href="rewards.html"><i class="fas fa-gift"></i><span>Rewards</span></a>
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">FinAi</div>
+                <button class="mobile-menu-toggle" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
-            <div class="logout">
-                 <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
-            </div>
-        </nav>
+            
+            <nav class="nav-menu">
+                <a href="home.html" class="active">
+                    <i class="fas fa-home"></i> <span>Dashboard</span>
+                </a>
+                <a href="transactions.html">
+                    <i class="fas fa-list"></i> <span>History</span>
+                </a>
+                <a href="balance.html">
+                    <i class="fas fa-robot"></i> <span>AI Budget</span>
+                </a>
+                <a href="send-money.html">
+                    <i class="fas fa-paper-plane"></i> <span>Transfer</span>
+                </a>
+                <a href="reports.html">
+                    <i class="fas fa-chart-pie"></i> <span>Reports</span>
+                </a>
+                <a href="rewards.html">
+                    <i class="fas fa-trophy"></i> <span>Rewards</span>
+                </a>
+            </nav>
 
+            <div class="logout">
+                <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+            </div>
+        </aside>
         <main class="main-content">
             <header class="main-header">
-                <h1>Welcome, <span id="username-display">User</span>!</h1>
+                <h1>Welcome back, <span id="username-display">User</span>!</h1>
             </header>
-
-            <div class="card ai-suggestion">
-                <i class="fas fa-lightbulb"></i>
-                <div class="suggestion-text">
-                    <strong>AI Tip:</strong> You've spent $50 on "Dining Out" this week. Consider cooking at home to stay within your $100 monthly food budget.
+            
+            <div class="card" style="background: linear-gradient(135deg, #4F46E5 0%, #7c3aed 100%); color: white; margin-bottom: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <p style="margin-bottom: 5px; opacity: 0.9;">My UPI ID</p>
+                        <h2 id="user-upi-id" style="font-family: monospace; letter-spacing: 1px;">loading...</h2>
+                    </div>
+                <i class="fas fa-qrcode" style="font-size: 3rem; opacity: 0.5;"></i>
                 </div>
             </div>
 
             <div class="grid-container">
-                <div class="card stat-card income">
-                    <div class="icon"><i class="fas fa-arrow-up"></i></div>
+                <div class="card stat-card balance">
+                    <div class="icon"><i class="fas fa-wallet"></i></div>
                     <div class="info">
-                        <h3>This Month's Income</h3>
-                        <p>$515,000</p>
+                        <h3>Total Balance</h3>
+                        <p id="wallet-balance">Loading...</p>
                     </div>
                 </div>
-                <div class="card stat-card expense">
+
+                <div class="card stat-card income">
                     <div class="icon"><i class="fas fa-arrow-down"></i></div>
                     <div class="info">
-                        <h3>This Month's Expenses</h3>
-                        <p>$2,150</p>
+                        <h3>Total Income</h3>
+                        <p id="dashboard-income">₹0.00</p> 
                     </div>
                 </div>
-                <div class="card stat-card balance">
-                    <div class="icon"><i class="fas fa-scale-balanced"></i></div>
+
+                <div class="card stat-card expense">
+                    <div class="icon"><i class="fas fa-arrow-up"></i></div>
                     <div class="info">
-                        <h3>Remaining Balance</h3>
-                        <p>$2,850</p>
+                        <h3>Total Expenses</h3>
+                        <p id="dashboard-expense">₹0.00</p>
                     </div>
                 </div>
             </div>
-
-            <div class="card transaction-list">
-                <h2>Recent Transactions</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Description</th>
-                            <th>Category</th>
-                            <th>Date</th>
-                            <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Netflix Subscription</td>
-                            <td>Entertainment</td>
-                            <td>Sep 24, 2025</td>
-                            <td class="type-expense">-$15.99</td>
-                        </tr>
-                        <tr>
-                            <td>Paycheck</td>
-                            <td>Salary</td>
-                            <td>Sep 20, 2025</td>
-                            <td class="type-income">+$2500.00</td>
-                        </tr>
-                        <tr>
-                            <td>Groceries</td>
-                            <td>Food</td>
-                            <td>Sep 22, 2025</td>
-                            <td class="type-expense">-$78.50</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
+            
         </main>
     </div>
+
     <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
 </body>
 </html>

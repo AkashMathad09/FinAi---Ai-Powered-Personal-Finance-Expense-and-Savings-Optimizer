@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Money - FinAi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">FinAi</div>
+                <button class="mobile-menu-toggle" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="home.html" class="active">
+                    <i class="fas fa-home"></i> <span>Dashboard</span>
+                </a>
+                <a href="transactions.html">
+                    <i class="fas fa-list"></i> <span>History</span>
+                </a>
+                <a href="balance.html">
+                    <i class="fas fa-robot"></i> <span>AI Budget</span>
+                </a>
+                <a href="send-money.html">
+                    <i class="fas fa-paper-plane"></i> <span>Transfer</span>
+                </a>
+                <a href="reports.html">
+                    <i class="fas fa-chart-pie"></i> <span>Reports</span>
+                </a>
+                <a href="rewards.html">
+                    <i class="fas fa-trophy"></i> <span>Rewards</span>
+                </a>
+            </nav>
+
+            <div class="logout">
+                <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Transfer Funds</h1>
+            </header>
+
+            <div class="card" style="max-width: 600px;">
+    <form id="send-money-form" class="auth-form">
+        <div class="form-group">
+            <label for="recipient-upi">Recipient UPI ID</label>
+            <input type="text" id="recipient-upi" placeholder="user@finai" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="amount">Amount (₹)</label>
+            <input type="number" id="amount" placeholder="0.00" min="1" step="0.01" required>
+        </div>
+
+        <button type="submit" class="btn">
+            Send Money <i class="fas fa-arrow-right" style="margin-left: 5px;"></i>
+        </button>
+    </form>
+    
+    <div id="form-message" style="margin-top: 1.5rem; padding: 1rem; border-radius: 5px; display: none;"></div>
+</div>
+                
+                <div id="transfer-message" style="margin-top: 1.5rem; padding: 1rem; border-radius: 5px; display: none;"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/sendMoney.js"></script>
+</body>
+</html>

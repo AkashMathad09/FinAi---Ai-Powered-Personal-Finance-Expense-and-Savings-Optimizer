@@ -1,59 +1,62 @@
 const Transaction = require('../models/Transaction');
+const Wallet = require('../models/Wallet');
+// 👇 FIX 1: Re-enabled the AI import
+const { getCategory } = require('../ai/gemini'); 
 
-// @desc    Get all transactions for the logged-in user
+// @desc    Get all transactions for a user
 // @route   GET /api/transactions
 exports.getTransactions = async (req, res) => {
     try {
         const transactions = await Transaction.find({ user: req.user.id }).sort({ date: -1 });
-        res.status(200).json(transactions);
-    } catch (error) {
-        res.status(500).json({ message: `Server Error: ${error.message}` });
+        res.json(transactions);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
     }
 };
 
 // @desc    Add a new transaction
 // @route   POST /api/transactions
 exports.addTransaction = async (req, res) => {
-    const { description, amount, type, category, date } = req.body;
-
     try {
-        const newTransaction = await Transaction.create({
-            user: req.user.id, // Link the transaction to the logged-in user
+        const { description, amount, type } = req.body;
+        const userId = req.user.id;
+
+        // --- 1. AI Categorization (RE-ENABLED) ---
+        // 👇 FIX 2: Replaced the bypassed line with the real AI call
+        const category = await getCategory(description); 
+
+        // --- 2. Update Wallet Balance ---
+        const wallet = await Wallet.findOne({ userId: userId });
+        if (!wallet) {
+            return res.status(404).json({ message: 'Wallet not found' });
+        }
+
+        const numericAmount = parseFloat(amount);
+        if (type === 'income') {
+            wallet.balance += numericAmount;
+        } else {
+            wallet.balance -= numericAmount;
+        }
+        await wallet.save();
+
+        // --- 3. Create and Save Transaction Record ---
+        const newTransaction = new Transaction({
+            user: userId, 
             description,
-            amount,
+            amount: numericAmount,
             type,
-            category,
-            date,
+            category: category, // This now uses the AI's category
+            date: new Date()
         });
+
+        await newTransaction.save();
+        
+        // Return the newly created transaction
         res.status(201).json(newTransaction);
-    } catch (error) {
-        if (error.name === 'ValidationError') {
-            const messages = Object.values(error.errors).map(val => val.message);
-            return res.status(400).json({ message: messages.join(', ') });
-        }
-        res.status(500).json({ message: `Server Error: ${error.message}` });
-    }
-};
 
-// @desc    Delete a transaction
-// @route   DELETE /api/transactions/:id
-exports.deleteTransaction = async (req, res) => {
-    try {
-        const transaction = await Transaction.findById(req.params.id);
-
-        if (!transaction) {
-            return res.status(404).json({ message: 'Transaction not found' });
-        }
-
-        // Security Check: Ensure the user owns the transaction
-        if (transaction.user.toString() !== req.user.id) {
-            return res.status(401).json({ message: 'User not authorized' });
-        }
-
-        await transaction.deleteOne();
-
-        res.status(200).json({ id: req.params.id });
-    } catch (error) {
-        res.status(500).json({ message: `Server Error: ${error.message}` });
+    } catch (err) {
+        console.error('Error in addTransaction:', err.message);
+        res.status(500).send('Server Error');
     }
 };

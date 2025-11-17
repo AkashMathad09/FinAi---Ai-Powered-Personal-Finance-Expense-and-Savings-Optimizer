@@ -3,55 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rewards - AI Expense Manager</title>
+    <title>My Rewards - FinAi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <style>
+        /* Special styles for the rewards page */
+        .reward-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            background: var(--card-bg-color);
+        }
+        .reward-icon {
+            font-size: 6rem;
+            margin-bottom: 1.5rem;
+            line-height: 1;
+        }
+        .reward-success .reward-icon {
+            color: #f7b731; /* Gold */
+        }
+        .reward-fail .reward-icon {
+            color: var(--subtle-text-color);
+        }
+        .reward-card h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .reward-card p {
+            font-size: 1.1rem;
+            color: var(--subtle-text-color);
+            max-width: 400px;
+            margin: 0 auto 1.5rem auto;
+        }
+        .reward-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
 </head>
 <body>
     <div class="app-container">
-        <nav class="sidebar">
-            <div class="logo">FinAI</div>
-            <div class="nav-menu">
-                <a href="home.html"><i class="fas fa-home"></i><span>Home</span></a>
-                <a href="transactions.html"><i class="fas fa-exchange-alt"></i><span>Transactions</span></a>
-                <a href="balance.html"><i class="fas fa-wallet"></i><span>Balance</span></a>
-                <a href="reports.html"><i class="fas fa-chart-pie"></i><span>Reports</span></a>
-                <a href="rewards.html" class="active"><i class="fas fa-gift"></i><span>Rewards</span></a>
+        
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">FinAi</div>
+                <button class="mobile-menu-toggle" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
-            <div class="logout">
-                 <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
-            </div>
-        </nav>
+            
+            <nav class="nav-menu">
+                <a href="home.html" class="active">
+                    <i class="fas fa-home"></i> <span>Dashboard</span>
+                </a>
+                <a href="transactions.html">
+                    <i class="fas fa-list"></i> <span>History</span>
+                </a>
+                <a href="balance.html">
+                    <i class="fas fa-robot"></i> <span>AI Budget</span>
+                </a>
+                <a href="send-money.html">
+                    <i class="fas fa-paper-plane"></i> <span>Transfer</span>
+                </a>
+                <a href="reports.html">
+                    <i class="fas fa-chart-pie"></i> <span>Reports</span>
+                </a>
+                <a href="rewards.html">
+                    <i class="fas fa-trophy"></i> <span>Rewards</span>
+                </a>
+            </nav>
 
+            <div class="logout">
+                <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
         <main class="main-content">
             <header class="main-header">
-                <h1>Your Rewards</h1>
+                <h1>This Month's Reward</h1>
             </header>
 
-            <div class="card">
-                <h2>Keep Saving to Earn More!</h2>
-                <p>You earn rewards by staying under your AI-suggested monthly expense limit.</p>
+            <!-- This is where the reward status will be loaded -->
+            <div id="reward-status-container">
+                <p>Checking your budget status...</p>
             </div>
 
-            <div id="rewards-container" class="grid-container" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
-                <div class="card" style="text-align: center;">
-                    <i class="fas fa-star" style="font-size: 3rem; color: #FBBF24; margin-bottom: 1rem;"></i>
-                    <h3 style="margin-bottom: 0.5rem;">August Saver</h3>
-                    <p style="color: var(--subtle-text-color);">You stayed $150 under budget in August 2025!</p>
-                </div>
-                 <div class="card" style="text-align: center;">
-                    <i class="fas fa-trophy" style="font-size: 3rem; color: #9CA3AF; margin-bottom: 1rem;"></i>
-                    <h3 style="margin-bottom: 0.5rem;">3-Month Streak</h3>
-                    <p style="color: var(--subtle-text-color);">Achieved in July 2025.</p>
-                </div>
-                 <div class="card" style="text-align: center;">
-                    <i class="fas fa-gem" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
-                    <h3 style="margin-bottom: 0.5rem;">Super Saver</h3>
-                    <p style="color: var(--subtle-text-color);">Saved over $1,000 in total.</p>
-                </div>
-            </div>
         </main>
     </div>
+
     <script src="js/auth.js"></script>
-    <script src="js/rewards.js"></script> </body>
+    <script src="js/rewards.js"></script> <!-- We will create this file next -->
+</body>
 </html>

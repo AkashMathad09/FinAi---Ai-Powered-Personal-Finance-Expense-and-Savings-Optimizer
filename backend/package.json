@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "FinAi",
+  "name": "finai",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -21,6 +21,6 @@
     "mongoose": "^8.4.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.2"
+    "nodemon": "^3.1.10"
   }
 }

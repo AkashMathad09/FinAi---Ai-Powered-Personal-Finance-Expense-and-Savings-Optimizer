@@ -20,6 +20,12 @@ const UserSchema = new mongoose.Schema({
         required: [true, 'Please provide a password'],
         minlength: 6,
     },
+    // --- NEW FIELD FOR UPI TRANSFERS ---
+    upiId: {
+        type: String,
+        unique: true,
+       
+    }
 }, {
     timestamps: true // Automatically adds 'createdAt' and 'updatedAt' fields
 });

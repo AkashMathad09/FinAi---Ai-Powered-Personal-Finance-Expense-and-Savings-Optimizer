@@ -3,86 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transactions - AI Expense Manager</title>
-    <link rel="stylesheet" href="/frontend/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <title>History - FinAi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="app-container">
-        <nav class="sidebar">
-            <div class="logo">FinAI</div>
-            <div class="nav-menu">
-                <a href="home.html"><i class="fas fa-home"></i><span>Home</span></a>
-                <a href="transactions.html" class="active"><i class="fas fa-exchange-alt"></i><span>Transactions</span></a>
-                <a href="balance.html"><i class="fas fa-wallet"></i><span>Balance</span></a>
-                <a href="reports.html"><i class="fas fa-chart-pie"></i><span>Reports</span></a>
-                <a href="rewards.html"><i class="fas fa-gift"></i><span>Rewards</span></a>
+        
+       <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">FinAi</div>
+                <button class="mobile-menu-toggle" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
+            
+            <nav class="nav-menu">
+                <a href="home.html" class="active">
+                    <i class="fas fa-home"></i> <span>Dashboard</span>
+                </a>
+                <a href="transactions.html">
+                    <i class="fas fa-list"></i> <span>History</span>
+                </a>
+                <a href="balance.html">
+                    <i class="fas fa-robot"></i> <span>AI Budget</span>
+                </a>
+                <a href="send-money.html">
+                    <i class="fas fa-paper-plane"></i> <span>Transfer</span>
+                </a>
+                <a href="reports.html">
+                    <i class="fas fa-chart-pie"></i> <span>Reports</span>
+                </a>
+                <a href="rewards.html">
+                    <i class="fas fa-trophy"></i> <span>Rewards</span>
+                </a>
+            </nav>
+
             <div class="logout">
-                 <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+                <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
             </div>
-        </nav>
+        </aside>
 
         <main class="main-content">
             <header class="main-header">
-                <h1>Transactions</h1>
+                <h1>Transaction History</h1>
             </header>
 
             <div class="card">
-                <h2>Add New Transaction</h2>
+                <h3 style="margin-bottom: 1rem;">Add New Transaction</h3>
                 <form id="transaction-form" class="transaction-form">
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <input type="text" id="description" placeholder="e.g., Coffee" required>
+                        <input type="text" id="description" placeholder="e.g., Grocery, Salary" required>
                     </div>
+                    
                     <div class="form-group">
-                        <label for="amount">Amount</label>
-                        <input type="number" id="amount" placeholder="2.50" step="0.01" required>
+                        <label for="amount">Amount (₹)</label>
+                        <input type="number" id="amount" step="0.01" placeholder="0.00" required>
                     </div>
+
                     <div class="form-group">
                         <label for="type">Type</label>
-                        <select id="type">
+                        <select id="type" required>
                             <option value="expense">Expense</option>
                             <option value="income">Income</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="category">Category</label>
-                        <select id="category">
-                            <option value="Food">Food</option>
-                            <option value="Transport">Transport</option>
-                            <option value="Shopping">Shopping</option>
-                            <option value="Bills">Bills</option>
-                            <option value="Entertainment">Entertainment</option>
-                            <option value="Salary">Salary</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
+
                     <button type="submit" class="btn">Add</button>
                 </form>
-                <p id="form-error" style="color:var(--danger-color); margin-top:1rem; display:none;"></p>
+               <p id="form-error" style="color: var(--danger-color); display: none; margin-top: 10px;"></p>
             </div>
 
             <div class="card transaction-list">
-                <h2>Transaction History</h2>
                 <table>
                     <thead>
                         <tr>
                             <th>Description</th>
-                            <th>Category</th>
+                            <th>Category (AI)</th>
                             <th>Date</th>
                             <th>Amount</th>
                         </tr>
                     </thead>
                     <tbody id="transaction-table-body">
-                        <tr>
-                            <td colspan="4" style="text-align: center;">Loading transactions...</td>
-                        </tr>
-                    </tbody>
+                        </tbody>
                 </table>
             </div>
         </main>
     </div>
+
     <script src="js/auth.js"></script>
     <script src="js/transactions.js"></script>
 </body>

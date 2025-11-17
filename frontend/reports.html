@@ -3,49 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reports - AI Expense Manager</title>
+    <title>Reports - FinAi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    
+    <!-- 👇 1. ADD THE CHART.JS LIBRARY -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="app-container">
-        <nav class="sidebar">
-            <div class="logo">FinAI</div>
-            <div class="nav-menu">
-                <a href="home.html"><i class="fas fa-home"></i><span>Home</span></a>
-                <a href="transactions.html"><i class="fas fa-exchange-alt"></i><span>Transactions</span></a>
-                <a href="balance.html"><i class="fas fa-wallet"></i><span>Balance</span></a>
-                <a href="reports.html" class="active"><i class="fas fa-chart-pie"></i><span>Reports</span></a>
-                <a href="rewards.html"><i class="fas fa-gift"></i><span>Rewards</span></a>
+        
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">FinAi</div>
+                <button class="mobile-menu-toggle" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
-            <div class="logout">
-                 <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
-            </div>
-        </nav>
+            
+            <nav class="nav-menu">
+                <a href="home.html" class="active">
+                    <i class="fas fa-home"></i> <span>Dashboard</span>
+                </a>
+                <a href="transactions.html">
+                    <i class="fas fa-list"></i> <span>History</span>
+                </a>
+                <a href="balance.html">
+                    <i class="fas fa-robot"></i> <span>AI Budget</span>
+                </a>
+                <a href="send-money.html">
+                    <i class="fas fa-paper-plane"></i> <span>Transfer</span>
+                </a>
+                <a href="reports.html">
+                    <i class="fas fa-chart-pie"></i> <span>Reports</span>
+                </a>
+                <a href="rewards.html">
+                    <i class="fas fa-trophy"></i> <span>Rewards</span>
+                </a>
+            </nav>
 
+            <div class="logout">
+                <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
         <main class="main-content">
             <header class="main-header">
-                <h1>Financial Reports</h1>
+                <h1>Expense Reports</h1>
             </header>
 
-            <div class="grid-container" style="grid-template-columns: 1fr 1fr; gap: 2rem;">
-                 <div class="card">
-                    <h2>Spending by Category</h2>
-                    <canvas id="category-chart"></canvas>
-                </div>
-
-                <div class="card">
-                    <h2>Income vs. Expense (Last 6 Months)</h2>
-                    <canvas id="flow-chart"></canvas>
+            <div class="card">
+                <h3>Monthly Expense Breakdown</h3>
+                <p style="color: var(--subtle-text-color);">
+                    This pie chart shows your spending by category for the current month.
+                </p>
+                
+                <!-- 👇 2. THIS IS WHERE THE CHART WILL BE DRAWN -->
+                <div class="chart-container" style="max-width: 450px; margin: 2rem auto;">
+                    <canvas id="expense-pie-chart"></canvas>
                 </div>
             </div>
-
         </main>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <script src="js/auth.js"></script>
-    <script src="js/charts.js"></script>
+    <script src="js/reports.js"></script> <!-- We will create this file next -->
 </body>
 </html>

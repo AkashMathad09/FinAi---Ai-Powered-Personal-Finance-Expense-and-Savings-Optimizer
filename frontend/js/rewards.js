@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const API_URL_REWARDS = 'http://localhost:5000/api/user/rewards'; // Example endpoint
+    const API_URL = 'http://localhost:5000/api';
     const token = localStorage.getItem('token');
 
     if (!token) {
@@ -7,50 +7,72 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    const rewardsContainer = document.getElementById('rewards-container');
+    const rewardContainer = document.getElementById('reward-status-container');
+    const formatCurrency = (amount) => `₹${Math.abs(amount).toFixed(2)}`;
 
-    const fetchRewards = async () => {
-         try {
-            // Replace with your actual API call
-            /*
-            const res = await fetch(API_URL_REWARDS, {
+    const fetchRewardStatus = async () => {
+        try {
+            const res = await fetch(`${API_URL}/rewards/status`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
-            if (!res.ok) throw new Error('Could not load rewards');
-            const rewards = await res.json();
-            */
 
-            // --- SIMULATED DATA ---
-            const rewards = [
-                { icon: 'fa-star', color: '#FBBF24', title: 'August Saver', description: 'You stayed $150 under budget in August 2025!' },
-                { icon: 'fa-trophy', color: '#9CA3AF', title: '3-Month Streak', description: 'Achieved in July 2025.' },
-                { icon: 'fa-gem', color: 'var(--primary-color)', title: 'Super Saver', description: 'Saved over $1,000 in total.' },
-                { icon: 'fa-leaf', color: 'var(--secondary-color)', title: 'Eco-Warrior', description: 'Reduced transport spending by 20%.' },
-            ];
-            // --- END SIMULATED DATA ---
+            if (!res.ok) throw new Error('Could not load reward status.');
 
-            rewardsContainer.innerHTML = ''; // Clear placeholders
-            if (rewards.length === 0) {
-                 rewardsContainer.innerHTML = '<p>No rewards yet. Keep saving to earn them!</p>';
-                 return;
-            }
+            const data = await res.json(); // { hasReward, message, budgetLimit, totalExpense }
 
-            rewards.forEach(reward => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.style.textAlign = 'center';
-                card.innerHTML = `
-                    <i class="fas ${reward.icon}" style="font-size: 3rem; color: ${reward.color}; margin-bottom: 1rem;"></i>
-                    <h3 style="margin-bottom: 0.5rem;">${reward.title}</h3>
-                    <p style="color: var(--subtle-text-color);">${reward.description}</p>
+            let rewardHTML = '';
+
+            if (data.hasReward) {
+                // SUCCESS: User is under budget
+                rewardHTML = `
+                    <div class="reward-card reward-success">
+                        <div class="reward-icon"><i class="fas fa-trophy"></i></div>
+                        <h2>Budget Master!</h2>
+                        <p>${data.message}</p>
+                        
+                        <div class="reward-stats">
+                            <div>
+                                <p style="color: var(--subtle-text-color);">Your Budget</p>
+                                <strong style="font-size: 1.25rem;">${formatCurrency(data.budgetLimit)}</strong>
+                            </div>
+                            <div>
+                                <p style="color: var(--subtle-text-color);">You Spent</p>
+                                <strong style="font-size: 1.25rem; color: var(--success-color);">${formatCurrency(data.totalExpense)}</strong>
+                            </div>
+                        </div>
+                    </div>
                 `;
-                rewardsContainer.appendChild(card);
-            });
+            } else {
+                // FAIL: User is over budget or has no budget
+                rewardHTML = `
+                    <div class="reward-card reward-fail">
+                        <div class="reward-icon"><i class="fas fa-chart-line"></i></div>
+                        <h2>Keep Going!</h2>
+                        <p>${data.message}</p>
 
-         } catch (err) {
-            rewardsContainer.innerHTML = `<p style="color:var(--danger-color)">${err.message}</p>`;
-         }
+                        ${data.budgetLimit > 0 ? `
+                        <div class="reward-stats">
+                            <div>
+                                <p style="color: var(--subtle-text-color);">Your Budget</p>
+                                <strong style="font-size: 1.25rem;">${formatCurrency(data.budgetLimit)}</strong>
+                            </div>
+                            <div>
+                                <p style="color: var(--subtle-text-color);">You Spent</p>
+                                <strong style="font-size: 1.25rem; color: var(--danger-color);">${formatCurrency(data.totalExpense)}</strong>
+                            </div>
+                        </div>
+                        ` : ''}
+                    </div>
+                `;
+            }
+            
+            rewardContainer.innerHTML = rewardHTML;
+
+        } catch (err) {
+            console.error(err);
+            rewardContainer.innerHTML = `<p style="color: var(--danger-color);">${err.message}</p>`;
+        }
     };
 
-    fetchRewards();
+    fetchRewardStatus();
 });

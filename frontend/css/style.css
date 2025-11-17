@@ -60,9 +60,12 @@ a:hover {
     margin-bottom: 2rem;
 }
 
+.auth-form { /* This class is also used in send-money.html */
+    text-align: left;
+}
+
 .auth-form .form-group {
     margin-bottom: 1.5rem;
-    text-align: left;
 }
 
 .auth-form label {
@@ -131,15 +134,51 @@ a:hover {
     flex-direction: column;
     border-right: 1px solid var(--border-color);
     transition: width 0.3s;
+    overflow-y: auto; 
+}
+
+/* Header for Logo + Menu Button */
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
 }
 
 .sidebar .logo {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--primary-color);
-    margin-bottom: 3rem;
-    text-align: center;
+    margin-bottom: 0; 
 }
+
+/* Mobile Menu Button - Hidden by default (on Desktop) */
+.mobile-menu-toggle {
+    display: none; 
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s;
+}
+.mobile-menu-toggle:hover {
+    background-color: var(--background-color);
+}
+
+/* --- FIX: Explicitly ensure nav menu and logout are visible on desktop --- */
+.sidebar .nav-menu {
+    display: block; 
+}
+
+.sidebar .logout {
+    margin-top: auto;
+    display: block;
+}
+/* -------------------------------------------------------------------------- */
+
 
 .sidebar .nav-menu a {
     display: flex;
@@ -163,9 +202,6 @@ a:hover {
     font-size: 1.2rem;
 }
 
-.sidebar .logout {
-    margin-top: auto;
-}
 
 .main-content {
     flex: 1;
@@ -175,6 +211,8 @@ a:hover {
 
 .main-header {
     display: flex;
+    flex-wrap: wrap; 
+    gap: 1rem;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
@@ -192,10 +230,18 @@ a:hover {
     margin-bottom: 1.5rem;
 }
 
-.grid-container {
+.grid-container,
+.grid-3-col { 
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 1rem;
+    text-align: left;
 }
 
 .stat-card {
@@ -236,7 +282,7 @@ a:hover {
 /* --- Transactions Page --- */
 .transaction-form {
     display: grid;
-    grid-template-columns: repeat(2, 1fr) auto;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
     gap: 1rem;
     align-items: flex-end;
 }
@@ -253,9 +299,11 @@ a:hover {
     padding: 0.75rem;
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
+    font-size: 1rem;
 }
 .transaction-form button {
-    padding: 0.75rem 2rem;
+    padding: 0.75rem 1.5rem; 
+    height: 45px;
 }
 
 .transaction-list table {
@@ -271,6 +319,7 @@ a:hover {
 .transaction-list th {
     color: var(--subtle-text-color);
     font-weight: 500;
+    font-size: 0.9rem;
 }
 .transaction-list .type-income {
     color: var(--secondary-color);
@@ -297,41 +346,111 @@ a:hover {
     margin-right: 1.5rem;
 }
 
-/* --- Responsive Design --- */
+/* --- Responsive Design (Mobile View) --- */
 @media (max-width: 768px) {
+    /* --- Main Layout --- */
     .app-container {
         flex-direction: column;
+        height: auto; 
     }
     .sidebar {
         width: 100%;
         height: auto;
-        flex-direction: row;
-        align-items: center;
+        flex-direction: column; 
+        align-items: stretch; 
         padding: 1rem;
         border-right: none;
         border-bottom: 1px solid var(--border-color);
     }
+    .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0; 
+    }
     .sidebar .logo {
         margin-bottom: 0;
-        margin-right: auto;
     }
-    .sidebar .nav-menu {
-        display: flex;
+    
+    /* 1. Show mobile menu button ONLY on mobile */
+    .mobile-menu-toggle {
+        display: block;
     }
-    .sidebar .nav-menu a {
-        padding: 0.5rem;
-        margin-bottom: 0;
-        margin-left: 0.5rem;
-    }
-    .sidebar .nav-menu span { display: none; } /* Hide text on mobile */
+
+    /* 2. Hide nav menu and logout by default on mobile (The "responsive" part) */
+    .sidebar .nav-menu,
     .sidebar .logout {
-        margin-top: 0;
-        margin-left: 1rem;
+        display: none;
     }
+    
+    /* Show menu when 'open' class is added (JS toggle) */
+    .sidebar.open .nav-menu,
+    .sidebar.open .logout {
+        display: flex; /* Use flex to ensure vertical stacking of links */
+        flex-direction: column; 
+    }
+    .sidebar.open .nav-menu {
+        margin-top: 1rem; 
+    }
+    .sidebar.open .logout {
+        margin-top: 1rem; 
+    }
+    .sidebar.open .nav-menu a {
+        padding: 1rem; /* Make tap targets larger */
+    }
+
     .main-content {
         padding: 1.5rem;
     }
     .main-header h1 {
         font-size: 1.75rem;
     }
+
+    /* --- Auth Pages --- */
+    .auth-container {
+        padding: 1.5rem;
+        box-shadow: none;
+        max-width: 100%;
+        margin: 0;
+        border-radius: 0;
+    }
+    
+    body {
+        display: block; 
+    }
+    .app-container {
+        display: flex; 
+    }
+
+    /* --- Cards & Grids --- */
+    .grid-container,
+    .grid-3-col {
+        grid-template-columns: 1fr;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr 1fr; 
+        gap: 1.5rem;
+    }
+
+    /* --- Forms --- */
+    .transaction-form {
+        grid-template-columns: 1fr;
+    }
+    .transaction-form button {
+        height: auto;
+    }
+
+    /* --- Table (Transactions) --- */
+    .transaction-list table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    .transaction-list th, .transaction-list td {
+        padding: 0.75rem;
+    }
 }
+
+
+
